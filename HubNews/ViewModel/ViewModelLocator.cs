@@ -11,6 +11,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using HubNews.Model;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HubNews.ViewModel
@@ -34,11 +35,11 @@ namespace HubNews.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                // SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
+                SimpleIoc.Default.Register<IFeedDataService, Design.FeedDataService>();
             }
             else
             {
-                // SimpleIoc.Default.Register<IDataService, DataService>();
+                SimpleIoc.Default.Register<IFeedDataService, FeedDataService>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace HubNews.Model
 {
@@ -6,8 +8,8 @@ namespace HubNews.Model
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Link { get; set; }
-        public string ImageLink { get; set; }
-        public DateTime Timestamp { get; set; }
+        public string Url { get; set; }
+        public string ImageUrl { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
     }
 }

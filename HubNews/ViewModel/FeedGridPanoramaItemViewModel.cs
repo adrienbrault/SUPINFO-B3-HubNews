@@ -8,9 +8,10 @@ namespace HubNews.ViewModel
     {
         public ObservableCollection<FeedItem> Items { get; set; }
 
-        public FeedGridPanoramaItemViewModel()
+        public FeedGridPanoramaItemViewModel(IFeedDataService feedDataService)
         {
-            Items = new ObservableCollection<FeedItem>();
+            Items = feedDataService.FeedsItems;
+            HeaderText = "En direct";
         }
     }
 }

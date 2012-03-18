@@ -6,7 +6,9 @@
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-                            xmlns:HubNews="clr-namespace:HubNews" x:Class="HubNews.MainPage"
+                            xmlns:HubNews="clr-namespace:HubNews"
+                            xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Toolkit"
+                            x:Class="HubNews.MainPage"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -19,18 +21,48 @@
                             DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="HubNews.ViewModels.FeedGridPanoramaItemViewModel">
+        <DataTemplate x:Key="HubNews.ViewModel.FeedGridPanoramaItemViewModel">
             <ListBox ItemsSource="{Binding Items}">
-
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="200" Height="150"
+                                    Margin="5">
+                        	<StackPanel.Background>
+                        		<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+							</StackPanel.Background>
+							
+                            <TextBlock Text="{Binding Title}"
+                                       TextWrapping="Wrap"
+									   Margin="10" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <toolkit:WrapPanel  />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
             </ListBox>
         </DataTemplate>
-        <DataTemplate x:Key="HubNews.ViewModels.FeedListPanoramaItemViewModel">
+        <DataTemplate x:Key="HubNews.ViewModel.FeedListPanoramaItemViewModel">
             <ListBox ItemsSource="{Binding Items}">
-
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Height="75">
+                        	<Image MaxHeight="100" MaxWidth="100"
+                                   Source="{Binding ImageUrl}" />
+                            <StackPanel Orientation="Vertical" Margin="10 0 0 0">
+                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock Text="{Binding Description}"
+                                           Style="{StaticResource PhoneTextAccentStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
-
+    
     <!--LayoutRoot contains the root grid where all other page content is placed-->
 	<Grid x:Name="LayoutRoot"
 	      Background="Transparent">
@@ -61,6 +93,17 @@
 		      		</StackPanel>
 		    	</DataTemplate>
 		  	</controls:Panorama.TitleTemplate>
+
+            <controls:Panorama.HeaderTemplate>
+                <DataTemplate>
+                    <Grid x:Name="grid">
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding HeaderText}"
+                                   d:LayoutOverrides="Width, Height" />
+						<Image MaxHeight="100" Source="{Binding HeaderImageUrl}" />
+                    </Grid>
+                </DataTemplate>
+            </controls:Panorama.HeaderTemplate>
 
             <controls:Panorama.ItemTemplate>
                 <DataTemplate>
