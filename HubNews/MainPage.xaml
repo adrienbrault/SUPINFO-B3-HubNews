@@ -21,8 +21,69 @@
                             DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
     <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="ListBoxGridItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="LayoutRoot"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)"
+                                                                           Storyboard.TargetName="ContentContainer">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="7"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)"
+                                                                           Storyboard.TargetName="ContentContainer">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="-7"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="7"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentControl x:Name="ContentContainer"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            Content="{TemplateBinding Content}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Margin="{TemplateBinding Padding}" >
+                                <ContentControl.Projection>
+                                    <PlaneProjection/>
+                                </ContentControl.Projection>
+                            </ContentControl>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
         <DataTemplate x:Key="HubNews.ViewModel.FeedGridPanoramaItemViewModel">
-            <ListBox ItemsSource="{Binding Items}">
+            <ListBox ItemsSource="{Binding Items}" ItemContainerStyle="{StaticResource ListBoxGridItemStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Width="200" Height="150"
@@ -76,7 +137,7 @@
 		
 		<ProgressBar Grid.Row="0" IsIndeterminate="True" />
 		
-		<controls:Panorama ItemsSource="{Binding PanoramaItems}"
+		<controls:Panorama  ItemsSource="{Binding PanoramaItems}"
                             Title="Hub News"
 							Height="Auto" Width="Auto"
 							Grid.Row="1">
