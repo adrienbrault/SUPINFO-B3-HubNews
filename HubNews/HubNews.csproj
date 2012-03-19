@@ -85,8 +85,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataTemplateSelector.cs" />
+    <Compile Include="Helper\DataTemplateSelector.cs" />
     <Compile Include="Design\FeedDataService.cs" />
+    <Compile Include="Helper\NotifyPropertyChangedHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

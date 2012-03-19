@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using HubNews.Model;
 
@@ -8,11 +10,26 @@ namespace HubNews.ViewModel
     {
         public ObservableCollection<PanoramaItemViewModelBase> PanoramaItems { get; set; }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            protected set { _isLoading = value; RaisePropertyChanged("IsLoading"); }
+        }
+
         protected IFeedDataService FeedDataService { get; private set; }
         
         public MainViewModel(IFeedDataService feedDataService)
         {
             FeedDataService = feedDataService;
+
+            FeedDataService.PropertyChanged += delegate(Object sender, PropertyChangedEventArgs e)
+            {
+                if ("RequestsCount" == e.PropertyName)
+                {
+                    IsLoading = FeedDataService.RequestsCount > 0;
+                }
+            };
 
             var siteLeParisien = new NewsSite()
             {

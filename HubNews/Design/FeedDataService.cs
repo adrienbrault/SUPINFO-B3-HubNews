@@ -1,13 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using HubNews.Helper;
 using HubNews.Model;
 
 namespace HubNews.Design
 {
     public class FeedDataService : IFeedDataService
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ObservableCollection<FeedItem> FeedsItems { get; private set; }
+        
+        private int _requestCount;
+        public int RequestsCount
+        {
+            get { return _requestCount; }
+            private set
+            {
+                _requestCount = Math.Max(value, 0);
+                PropertyChanged.Raise(() => this.RequestsCount);
+            }
+        }
 
         public FeedDataService()
         {
@@ -18,6 +33,8 @@ namespace HubNews.Design
             {
                 FeedsItems.Add(feedItem);
             }
+
+            RequestsCount = 3;
         }
 
         public void GetFeedItems(string url, Action<ICollection<FeedItem>, Exception> callback)

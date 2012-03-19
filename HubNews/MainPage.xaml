@@ -9,7 +9,7 @@
                             xmlns:HubNews="clr-namespace:HubNews"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
                             xmlns:delay="clr-namespace:Delay;assembly=PhonePerformance"
-                            x:Class="HubNews.MainPage"
+                            xmlns:Helper="clr-namespace:HubNews.Helper" x:Class="HubNews.MainPage"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -143,7 +143,7 @@
 			<RowDefinition Height="*" />
 	    </Grid.RowDefinitions>
 		
-		<ProgressBar Grid.Row="0" IsIndeterminate="True" />
+		<ProgressBar Grid.Row="0" IsIndeterminate="{Binding IsLoading}" />
 		
 		<controls:Panorama  ItemsSource="{Binding PanoramaItems}"
                             Title="Hub News"
@@ -162,7 +162,7 @@
 
             <controls:Panorama.ItemTemplate>
                 <DataTemplate>
-                    <HubNews:DataTemplateSelector Content="{Binding}" />
+                    <Helper:DataTemplateSelector Content="{Binding}" />
                 </DataTemplate>
             </controls:Panorama.ItemTemplate>
         </controls:Panorama>

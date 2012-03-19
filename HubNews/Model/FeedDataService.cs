@@ -5,18 +5,34 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Linq;
+using System.ComponentModel;
+using HubNews.Helper;
 
 namespace HubNews.Model
 {
     public class FeedDataService : IFeedDataService
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Dictionary<string, ICollection<FeedItem>> FeedsItemsDictionary { get; private set; }
         public ObservableCollection<FeedItem> FeedsItems { get; private set; }
+
+        private int _requestCount;
+        public int RequestsCount
+        {
+            get { return _requestCount; }
+            private set
+            {
+                _requestCount = Math.Max(value, 0);
+                PropertyChanged.Raise(() => this.RequestsCount);
+            }
+        }
 
         public FeedDataService()
         {
             FeedsItemsDictionary = new Dictionary<string, ICollection<FeedItem>>();
             FeedsItems = new ObservableCollection<FeedItem>();
+            RequestsCount = 0;
         }
 
         public void GetFeedItems(string url, Action<ICollection<FeedItem>, Exception> callback)
@@ -25,6 +41,8 @@ namespace HubNews.Model
             
             webClient.DownloadStringCompleted += delegate(object sender, DownloadStringCompletedEventArgs e)
             {
+                RequestsCount--;
+
                 try
                 {
                     if (e.Error != null)
@@ -42,7 +60,8 @@ namespace HubNews.Model
                     callback(null, exception);
                 }
             };
-            
+
+            RequestsCount++;
             webClient.DownloadStringAsync(new Uri(url));
         }
 

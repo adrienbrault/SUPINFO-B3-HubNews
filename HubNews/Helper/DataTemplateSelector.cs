@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace HubNews
+namespace HubNews.Helper
 {
     public class DataTemplateSelector : ContentControl
     {
