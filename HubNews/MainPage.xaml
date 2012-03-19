@@ -158,7 +158,7 @@
 
             <controls:Panorama.HeaderTemplate>
                 <DataTemplate>
-                    <Grid x:Name="grid">
+                    <Grid x:Name="grid" Height="100">
                         <TextBlock TextWrapping="Wrap"
                                    Text="{Binding HeaderText}"
                                    d:LayoutOverrides="Width, Height" />
