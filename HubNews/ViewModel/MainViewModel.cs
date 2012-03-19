@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HubNews.Model;
 
 namespace HubNews.ViewModel
@@ -53,9 +55,12 @@ namespace HubNews.ViewModel
             });
 
             NavigateToAboutCommand = new RelayCommand(() =>
-            {
-
-            });
+                                                          {
+                                                              Messenger.Default.Send<Uri>(
+                                                                  new Uri("/View/About.xaml", UriKind.Relative),
+                                                                  "NavigationRequest");
+                                                              Debug.WriteLine("hey");
+                                                          });
 
             // Configure panorama items/data
 

@@ -1,4 +1,6 @@
-﻿using HubNews.ViewModel;
+﻿using System;
+using GalaSoft.MvvmLight.Messaging;
+using HubNews.ViewModel;
 using Microsoft.Phone.Controls;
 
 namespace HubNews
@@ -9,8 +11,11 @@ namespace HubNews
         public MainPage()
         {
             InitializeComponent();
+
+            Messenger.Default.Register<Uri>(this, "NavigationRequest", (uri) => NavigationService.Navigate(uri));
         }
 
+        // ApplicationBar does not support Binding, so we "cheat" a little on MVVM using click event handlers
         private void OnApplicationBarRefreshIconButtonClick(object sender, System.EventArgs e)
         {
             var vm = DataContext as MainViewModel;
@@ -20,10 +25,14 @@ namespace HubNews
             }
         }
 
+        // ApplicationBar does not support Binding, so we "cheat" a little on MVVM using click event handlers
         private void OnApplicationBarAboutIconButtonClick(object sender, System.EventArgs e)
         {
             var vm = DataContext as MainViewModel;
-            
+            if (null != vm)
+            {
+                vm.NavigateToAboutCommand.Execute(null);
+            }
         }
     }
 }

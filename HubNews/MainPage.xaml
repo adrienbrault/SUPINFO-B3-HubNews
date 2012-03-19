@@ -149,6 +149,11 @@
                             Title="Hub News"
 							Height="Auto" Width="Auto"
 							Grid.Row="1">
+			<controls:Panorama.TitleTemplate>
+				<DataTemplate>
+			   		<TextBlock Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" FontSize="120" Margin="0,50,0,0" FontWeight="Bold" />
+				</DataTemplate>
+			</controls:Panorama.TitleTemplate>
 			<controls:Panorama.HeaderTemplate>
                 <DataTemplate>
                     <Grid x:Name="grid" Height="100">
@@ -171,10 +176,10 @@
     <phone:PhoneApplicationPage.ApplicationBar>
        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
            <shell:ApplicationBarIconButton IconUri="/icons/appbar.refresh.rest.png"
-                                           Text="Refresh"
+                                           Text="refresh"
                                            Click="OnApplicationBarRefreshIconButtonClick"/>
            <shell:ApplicationBarIconButton IconUri="/icons/appbar.questionmark.rest.png"
-                                           Text="About"
+                                           Text="about"
                                            Click="OnApplicationBarAboutIconButtonClick"/>
        </shell:ApplicationBar>
    </phone:PhoneApplicationPage.ApplicationBar>
