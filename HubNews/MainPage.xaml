@@ -8,6 +8,7 @@
                             xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:HubNews="clr-namespace:HubNews"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:delay="clr-namespace:Delay;assembly=PhonePerformance"
                             x:Class="HubNews.MainPage"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -111,7 +112,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Height="75">
                         	<Image MaxHeight="100" MaxWidth="100"
-                                   Source="{Binding ImageUrl}" />
+                                   delay:LowProfileImageLoader.UriSource="{Binding ImageUrl}" />
                             <StackPanel Orientation="Vertical" Margin="10 0 0 0">
                                 <TextBlock Text="{Binding Title}" />
                                 <TextBlock Text="{Binding Description}"
@@ -161,7 +162,7 @@
                         <TextBlock TextWrapping="Wrap"
                                    Text="{Binding HeaderText}"
                                    d:LayoutOverrides="Width, Height" />
-						<Image MaxHeight="100" Source="{Binding HeaderImageUrl}" />
+                        <Image MaxHeight="100" delay:LowProfileImageLoader.UriSource="{Binding HeaderImageUrl}" />
                     </Grid>
                 </DataTemplate>
             </controls:Panorama.HeaderTemplate>
