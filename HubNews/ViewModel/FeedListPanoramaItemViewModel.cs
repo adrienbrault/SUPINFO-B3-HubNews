@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using GalaSoft.MvvmLight.Command;
 using HubNews.Model;
 
 namespace HubNews.ViewModel
@@ -21,6 +22,8 @@ namespace HubNews.ViewModel
             protected set { _newsSite = value; RaisePropertyChanged("NewsSite"); }
         }
 
+        public RelayCommand RefreshCommand { get; private set; }
+
         protected IFeedDataService FeedDataService { get; set; }
 
         public FeedListPanoramaItemViewModel(NewsSite newsSite, IFeedDataService feedDataService)
@@ -38,28 +41,24 @@ namespace HubNews.ViewModel
             }
 
             Items = new ObservableCollection<FeedItem>();
-            RefreshItems();
-        }
 
-        public void RefreshItems()
-        {
-            FeedDataService.GetFeedItems(NewsSite.FeedUrl,
+            RefreshCommand = new RelayCommand(() => FeedDataService.GetFeedItems(NewsSite.FeedUrl,
                 (feedItems, exception) =>
-                {
-                    if (null != exception)
                     {
-                        Debug.WriteLine(exception.ToString());
-                    }
-                    else
-                    {
-                        Items = new ObservableCollection<FeedItem>();
-                        foreach (var feedItem in feedItems)
+                        if (null != exception)
                         {
-                            Items.Add(feedItem);
+                            Debug.WriteLine(exception.ToString());
+                        }
+                        else
+                        {
+                            Items = new ObservableCollection<FeedItem>();
+                            foreach (var feedItem in feedItems)
+                            {
+                                Items.Add(feedItem);
+                            }
                         }
                     }
-                }
-                );
+            ));
         }
     }
 }

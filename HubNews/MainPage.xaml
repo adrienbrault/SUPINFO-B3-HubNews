@@ -17,7 +17,7 @@
                             Orientation="Portrait"
                             mc:Ignorable="d"
                             d:DesignWidth="480"
-                            d:DesignHeight="768"
+                            d:DesignHeight="696"
                             shell:SystemTray.IsVisible="True"
                             DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
@@ -167,5 +167,16 @@
             </controls:Panorama.ItemTemplate>
         </controls:Panorama>
     </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+       <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+           <shell:ApplicationBarIconButton IconUri="/icons/appbar.refresh.rest.png"
+                                           Text="Refresh"
+                                           Click="OnApplicationBarRefreshIconButtonClick"/>
+           <shell:ApplicationBarIconButton IconUri="/icons/appbar.questionmark.rest.png"
+                                           Text="About"
+                                           Click="OnApplicationBarAboutIconButtonClick"/>
+       </shell:ApplicationBar>
+   </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

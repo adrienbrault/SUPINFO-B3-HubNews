@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HubNews.Model;
 
 namespace HubNews.ViewModel
@@ -17,11 +18,16 @@ namespace HubNews.ViewModel
             protected set { _isLoading = value; RaisePropertyChanged("IsLoading"); }
         }
 
+        public RelayCommand RefreshCommand { get; private set; }
+        public RelayCommand NavigateToAboutCommand { get; private set; }
+
         protected IFeedDataService FeedDataService { get; private set; }
         
         public MainViewModel(IFeedDataService feedDataService)
         {
             FeedDataService = feedDataService;
+
+            // Configure behaviors
 
             FeedDataService.PropertyChanged += delegate(Object sender, PropertyChangedEventArgs e)
             {
@@ -30,6 +36,28 @@ namespace HubNews.ViewModel
                     IsLoading = FeedDataService.RequestsCount > 0;
                 }
             };
+
+            RefreshCommand = new RelayCommand(() =>
+            {
+                if (!IsLoading)
+                {
+                    foreach (var panoramaItem in PanoramaItems)
+                    {
+                        if (panoramaItem is FeedListPanoramaItemViewModel)
+                        {
+                            var feedListPanoramaItem = panoramaItem as FeedListPanoramaItemViewModel;
+                            feedListPanoramaItem.RefreshCommand.Execute(null);
+                        }
+                    }
+                }
+            });
+
+            NavigateToAboutCommand = new RelayCommand(() =>
+            {
+
+            });
+
+            // Configure panorama items/data
 
             var siteLeParisien = new NewsSite()
             {
@@ -62,6 +90,10 @@ namespace HubNews.ViewModel
                 new FeedListPanoramaItemViewModel(siteLeMonde, FeedDataService),
                 new FeedListPanoramaItemViewModel(siteLeFigaro, FeedDataService)
             };
+
+            // Trigger the refresh command
+
+            RefreshCommand.Execute(null);
         }
     }
-}
+};

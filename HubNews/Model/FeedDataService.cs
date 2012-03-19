@@ -90,6 +90,7 @@ namespace HubNews.Model
 
         public void OnNewFeedItems(string url, ICollection<FeedItem> feedItems)
         {
+            FeedsItemsDictionary.Remove(url);
             FeedsItemsDictionary.Add(url, feedItems);
 
             FeedsItems.Clear();
