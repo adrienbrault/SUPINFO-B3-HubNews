@@ -21,6 +21,7 @@ namespace HubNews.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<FeedItemDetailViewModel>();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
@@ -31,6 +32,17 @@ namespace HubNews.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public FeedItemDetailViewModel FeedItemDetail
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<FeedItemDetailViewModel>();
             }
         }
     }

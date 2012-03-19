@@ -54,13 +54,7 @@ namespace HubNews.ViewModel
                 }
             });
 
-            NavigateToAboutCommand = new RelayCommand(() =>
-                                                          {
-                                                              Messenger.Default.Send<Uri>(
-                                                                  new Uri("/View/About.xaml", UriKind.Relative),
-                                                                  "NavigationRequest");
-                                                              Debug.WriteLine("hey");
-                                                          });
+            NavigateToAboutCommand = new RelayCommand(() => Messenger.Default.Send<Uri>(new Uri("/View/About.xaml", UriKind.Relative), "NavigationRequest"));
 
             // Configure panorama items/data
 

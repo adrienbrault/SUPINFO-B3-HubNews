@@ -6,9 +6,7 @@ namespace HubNews.ViewModel
 {
     public class FeedGridPanoramaItemViewModel : PanoramaItemViewModelBase
     {
-        public ObservableCollection<FeedItem> Items { get; set; }
-
-        public FeedGridPanoramaItemViewModel(IFeedDataService feedDataService)
+        public FeedGridPanoramaItemViewModel(IFeedDataService feedDataService) : base()
         {
             Items = feedDataService.FeedsItems;
             HeaderText = "En direct";

@@ -42,16 +42,14 @@ namespace HubNews.Design
             callback(GetFeedItemsCollection(), null);
         }
 
+        public FeedItem GetFeedItemById(string id)
+        {
+            return CreateFeedItem();
+        }
+
         protected ICollection<FeedItem> GetFeedItemsCollection()
         {
-            var feedItem = new FeedItem()
-            {
-                Title = "EN DIRECT. NKM votera PS en cas de 2e tour Hollande-LePen",
-                Description = @"C'est son grand jour. Jean-Luc Mélenchon espère réunir ce dimanche 30 000 personnes à la Bastille. Une marche suivie d'un meeting sur la fameuse place... Le candidat du Front de gauche à la...<img src=""http://rss.leparisien.fr/blank-1775101-2215760793.gif"" alt=""blank"" width=""1"" height=""1"" />",
-                ImageUrl = "http://www.leparisien.fr/images/2012/03/16/1908440_nkm2.jpg",
-                Url = "http://rss.leparisien.fr/item-1375401-2415260793.html",
-                Timestamp = new DateTime(2012, 03, 18, 09, 57, 00) // Sun, 18 Mar 2012 09:57:00
-            };
+            var feedItem = CreateFeedItem();
 
             var feedItems = new Collection<FeedItem>();
             for (int i = 0; i < 20; i++)
@@ -60,6 +58,18 @@ namespace HubNews.Design
             }
 
             return feedItems;
+        }
+
+        protected FeedItem CreateFeedItem()
+        {
+            return new FeedItem()
+            {
+                Title = "EN DIRECT. NKM votera PS en cas de 2e tour Hollande-LePen",
+                Description = @"C'est son grand jour. Jean-Luc Mélenchon espère réunir ce dimanche 30 000 personnes à la Bastille. Une marche suivie d'un meeting sur la fameuse place... Le candidat du Front de gauche à la...<img src=""http://rss.leparisien.fr/blank-1775101-2215760793.gif"" alt=""blank"" width=""1"" height=""1"" />",
+                ImageUrl = "http://www.leparisien.fr/images/2012/03/16/1908440_nkm2.jpg",
+                Url = "http://rss.leparisien.fr/item-1375401-2415260793.html",
+                Timestamp = new DateTime(2012, 03, 18, 09, 57, 00) // Sun, 18 Mar 2012 09:57:00
+            };
         }
     }
 }

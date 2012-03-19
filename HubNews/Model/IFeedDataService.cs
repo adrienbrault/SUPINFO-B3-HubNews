@@ -11,5 +11,6 @@ namespace HubNews.Model
         int RequestsCount { get; }
 
         void GetFeedItems(string url, Action<ICollection<FeedItem>, Exception> callback);
+        FeedItem GetFeedItemById(string id);
     }
 }

@@ -8,13 +8,6 @@ namespace HubNews.ViewModel
 {
     public class FeedListPanoramaItemViewModel : PanoramaItemViewModelBase
     {
-        private ObservableCollection<FeedItem> _items;
-        public ObservableCollection<FeedItem> Items
-        {
-            get { return _items; }
-            protected set { _items = value; RaisePropertyChanged("Items"); }
-        }
-
         private NewsSite _newsSite;
         public NewsSite NewsSite
         {
@@ -26,7 +19,7 @@ namespace HubNews.ViewModel
 
         protected IFeedDataService FeedDataService { get; set; }
 
-        public FeedListPanoramaItemViewModel(NewsSite newsSite, IFeedDataService feedDataService)
+        public FeedListPanoramaItemViewModel(NewsSite newsSite, IFeedDataService feedDataService) : base()
         {
             NewsSite = newsSite;
             FeedDataService = feedDataService;

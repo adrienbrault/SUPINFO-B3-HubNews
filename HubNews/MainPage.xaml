@@ -9,7 +9,10 @@
                             xmlns:HubNews="clr-namespace:HubNews"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
                             xmlns:delay="clr-namespace:Delay;assembly=PhonePerformance"
-                            xmlns:Helper="clr-namespace:HubNews.Helper" x:Class="HubNews.MainPage"
+                            xmlns:Helper="clr-namespace:HubNews.Helper"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+                            x:Class="HubNews.MainPage"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -84,7 +87,15 @@
         </Style>
         
         <DataTemplate x:Key="HubNews.ViewModel.FeedGridPanoramaItemViewModel">
-            <ListBox ItemsSource="{Binding Items}" ItemContainerStyle="{StaticResource ListBoxGridItemStyle}">
+            <ListBox ItemsSource="{Binding Items}"
+                     ItemContainerStyle="{StaticResource ListBoxGridItemStyle}"
+                     SelectedItem="{Binding Path=SelectedFeedItem, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cmd:EventToCommand Command="{Binding NavigateToFeedItemDetailCommand, Mode=OneWay}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Width="200" Height="150"
@@ -107,7 +118,14 @@
             </ListBox>
         </DataTemplate>
         <DataTemplate x:Key="HubNews.ViewModel.FeedListPanoramaItemViewModel">
-            <ListBox ItemsSource="{Binding Items}">
+            <ListBox ItemsSource="{Binding Items}"
+                     SelectedItem="{Binding Path=SelectedFeedItem, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cmd:EventToCommand Command="{Binding NavigateToFeedItemDetailCommand, Mode=OneWay}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal"
@@ -146,7 +164,7 @@
 		<ProgressBar Grid.Row="0" IsIndeterminate="{Binding IsLoading}" />
 		
 		<controls:Panorama  ItemsSource="{Binding PanoramaItems}"
-                            Title="Hub News"
+                            Title="hub news"
 							Height="Auto" Width="Auto"
 							Grid.Row="1">
 			<controls:Panorama.TitleTemplate>

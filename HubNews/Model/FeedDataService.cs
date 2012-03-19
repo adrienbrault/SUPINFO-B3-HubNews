@@ -65,7 +65,12 @@ namespace HubNews.Model
             webClient.DownloadStringAsync(new Uri(url));
         }
 
-        public ICollection<FeedItem> ParseFeed(string xmlString)
+        public FeedItem GetFeedItemById(string id)
+        {
+            return FeedsItems.First(feedItem => feedItem.Id == id);
+        }
+
+        private ICollection<FeedItem> ParseFeed(string xmlString)
         {
             ICollection<FeedItem> feedItems = new Collection<FeedItem>();
 
@@ -88,7 +93,7 @@ namespace HubNews.Model
             return feedItems;
         }
 
-        public void OnNewFeedItems(string url, ICollection<FeedItem> feedItems)
+        private void OnNewFeedItems(string url, ICollection<FeedItem> feedItems)
         {
             FeedsItemsDictionary.Remove(url);
             FeedsItemsDictionary.Add(url, feedItems);
