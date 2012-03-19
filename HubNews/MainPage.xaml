@@ -110,13 +110,20 @@
             <ListBox ItemsSource="{Binding Items}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Height="75">
-                        	<Image MaxHeight="100" MaxWidth="100"
-                                   delay:LowProfileImageLoader.UriSource="{Binding ImageUrl}" />
-                            <StackPanel Orientation="Vertical" Margin="10 0 0 0">
+                        <StackPanel Orientation="Horizontal"
+                                    Height="75" Margin="3">
+                            <StackPanel Width="100">
+                                <Image Height="75" Width="100"
+                                       Stretch="UniformToFill"
+                                        delay:LowProfileImageLoader.UriSource="{Binding ImageUrl}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="10 5 0 0">
                                 <TextBlock Text="{Binding Title}" />
-                                <TextBlock Text="{Binding Description}"
-                                           Style="{StaticResource PhoneTextAccentStyle}" />
+                                <TextBlock Text="{Binding Description}" Margin="0 3 0 0">
+                                    <TextBlock.Foreground>
+                                        <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
