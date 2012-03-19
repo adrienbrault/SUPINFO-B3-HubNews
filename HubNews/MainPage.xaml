@@ -149,21 +149,7 @@
                             Title="Hub News"
 							Height="Auto" Width="Auto"
 							Grid.Row="1">
-			<controls:Panorama.TitleTemplate>
-		    	<DataTemplate>
-		      		<StackPanel Height="170" Orientation="Vertical">
-		        		<TextBlock 	Text="{Binding}"
-									FontSize="50" Margin="0,65,0,0"
-									/>
-						<TextBlock 	Text="Restez connecté!"
-									FontSize="20" Margin="70,0,0,0"
-									Style="{StaticResource PhoneTextAccentStyle}"
-									FontStyle="Italic" />
-		      		</StackPanel>
-		    	</DataTemplate>
-		  	</controls:Panorama.TitleTemplate>
-
-            <controls:Panorama.HeaderTemplate>
+			<controls:Panorama.HeaderTemplate>
                 <DataTemplate>
                     <Grid x:Name="grid" Height="100">
                         <TextBlock TextWrapping="Wrap"
