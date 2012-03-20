@@ -31,5 +31,23 @@ namespace HubNews.View
                 viewModel.Initialize(NavigationContext.QueryString);   
             }
         }
+
+        private void OnApplicationBarEmailIconButtonClick(object sender, EventArgs e)
+        {
+            var vm = DataContext as FeedItemDetailViewModel;
+            if (null != vm)
+            {
+                vm.EmailCommand.Execute(null);
+            }
+        }
+
+        private void OnApplicationBarOpenIconButtonClick(object sender, EventArgs e)
+        {
+            var vm = DataContext as FeedItemDetailViewModel;
+            if (null != vm)
+            {
+                vm.OpenCommand.Execute(null);
+            }
+        }
     }
 }
