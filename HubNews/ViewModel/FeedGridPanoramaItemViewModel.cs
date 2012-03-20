@@ -9,7 +9,7 @@ namespace HubNews.ViewModel
         public FeedGridPanoramaItemViewModel(IFeedDataService feedDataService) : base()
         {
             Items = feedDataService.FeedsItems;
-            HeaderText = "En direct";
+            HeaderText = "live";
         }
     }
 }
