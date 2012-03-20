@@ -20,7 +20,12 @@ namespace HubNews.ViewModel
             protected set { _items = value; RaisePropertyChanged("Items"); }
         }
 
-        public FeedItem SelectedFeedItem { get; set; }
+        private FeedItem _selectedFeedItem;
+        public FeedItem SelectedFeedItem
+        {
+            get { return _selectedFeedItem; }
+            set { _selectedFeedItem = value; RaisePropertyChanged("SelectedFeedItem"); }
+        }
 
         public RelayCommand NavigateToFeedItemDetailCommand { get; private set; }
 
@@ -28,9 +33,17 @@ namespace HubNews.ViewModel
         {
             NavigateToFeedItemDetailCommand = new RelayCommand(() =>
             {
-                var uri = new Uri("/View/FeedItemDetail.xaml?id=" + SelectedFeedItem.Id, UriKind.Relative);
-                Messenger.Default.Send<Uri>(uri, "NavigationRequest");
+                if (null != SelectedFeedItem)
+                {
+                    var uri = new Uri("/View/FeedItemDetail.xaml?id=" + SelectedFeedItem.Id, UriKind.Relative);
+                    Messenger.Default.Send<Uri>(uri, "NavigationRequest");
+                }
             });
+        }
+
+        public void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            SelectedFeedItem = null;
         }
     }
 }

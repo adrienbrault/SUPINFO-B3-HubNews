@@ -34,5 +34,16 @@ namespace HubNews
                 vm.NavigateToAboutCommand.Execute(null);
             }
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            var viewModel = this.DataContext as MainViewModel;
+            if (null != viewModel)
+            {
+                viewModel.OnNavigatedTo(e);
+            }
+        }
     }
 }

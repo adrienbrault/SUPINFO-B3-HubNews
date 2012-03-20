@@ -94,5 +94,13 @@ namespace HubNews.ViewModel
 
             RefreshCommand.Execute(null);
         }
+
+        public void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            foreach (var panoramaItem in PanoramaItems)
+            {
+                panoramaItem.OnNavigatedTo(e);
+            }
+        }
     }
 };
